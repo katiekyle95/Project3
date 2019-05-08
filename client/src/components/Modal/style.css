@@ -1,0 +1,50 @@
+h1 {
+    color: white;
+}
+
+
+.modal {
+    position: absolute;
+    top: 0%;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.75);
+}
+
+.modal-container {
+    background-color: orange;
+    width: 800px;
+    height: 500px;
+    margin: 100px auto;
+    text-align: center;
+}
+
+.close {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 40px;
+    margin: 50px;
+    margin-left: 85%;
+}
+
+.search {
+    background: none;
+    border: none;
+    border-bottom: 2px solid white;
+    font-size: 40px;
+    width: 60%;
+    margin-top: 60px;
+    padding: 15px;
+    font-family: "roboto";
+    color: white;
+}
+
+.search-go {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 40px;
+    padding: 15px;
+    
+}
