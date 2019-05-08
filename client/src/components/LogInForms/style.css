@@ -1,0 +1,46 @@
+.box {
+    background-color: rgb(85, 85, 85);
+    padding-bottom: 40px;
+    width: 500px;
+    text-align: center;
+    margin: 60px auto;
+    
+}
+
+input {
+    font-size: 22px;
+    padding: 5px;
+    background-color: rgb(214, 214, 214);
+    margin: 30px auto 0px auto;
+    border: none;
+}
+
+.buttonshere {
+    
+    display: flex;
+    height: 50px;
+    margin-bottom: 10px;
+}
+
+.logbutton {
+    width: 50%;
+    background: none;
+    border: none;
+    color: white;
+    font-family: "roboto";
+    font-size: 20px;
+}
+
+#not {
+    background-color: black;
+}
+
+.logingo {
+    margin-top: 30px;
+    padding: 20px;
+    background: none;
+    border: none;
+    color: white;
+    font-family: "roboto";
+    font-size: 20px;
+}

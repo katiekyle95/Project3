@@ -17,12 +17,15 @@ import "./style.css";
 function HorrorNav(props) {
   return (
     <Nav> 
-      <a href="#">LOG IN</a>
+      <a href="/login">LOG IN</a>
       <a href="#">MY PROFILE</a>
       <button type="button" onClick={props.onSearch} className="toSearch">SEARCH</button>
     </Nav>
   )
 }
+
+
+
 
 
 class Books extends Component {
@@ -73,6 +76,10 @@ class Books extends Component {
   handleOnSearch = (event) => {
     this.setState ({ isOpen: true })
   };
+
+  handleOnClose = (event) => {
+    this.setState ({ isOpen: false })
+  };
   
 
   render() {
@@ -81,7 +88,7 @@ class Books extends Component {
               <Header />
               <HorrorNav onSearch={this.handleOnSearch} /> 
               <Modal isOpen={this.state.isOpen}>
-                <Close />
+                <Close onClick={this.handleOnClose}/>
                 <Search />
               </Modal>
                 
