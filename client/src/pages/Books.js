@@ -8,6 +8,7 @@ import Modal from "../components/Modal";
 import Close from "../components/Close";
 import Search from "../components/Search";
 import Loginbox from "../components/LogInForms";
+import PopCards from "../components/PopularCards";
 import { Link } from "react-router-dom";
 import { Col, Row, Container } from "../components/Grid";
 import { List, ListItem } from "../components/List";
@@ -22,8 +23,8 @@ function HorrorNav(props) {
     var greeting = 'Hello, ' + props.userName;
     return (
       <Nav> 
-        <button type="button" className="toLogIn">{greeting}</button>
-        <a href="/profile">MY PROFILE</a>
+        <a href="/profile" className="toLogIn">{greeting}</a>
+        <a href="/#"></a>
         <button type="button" onClick={props.onSearch} className="toSearch">SEARCH</button>
     </Nav>
 
@@ -33,9 +34,31 @@ function HorrorNav(props) {
   return (
     <Nav> 
       <button type="button" onClick={props.onShowLog} className="toLogIn">LOG IN</button>
-      <a href="#">MY PROFILE</a>
+      <a href="#"></a>
       <button type="button" onClick={props.onSearch} className="toSearch">SEARCH</button>
     </Nav>
+  )
+
+  
+}
+
+
+function PopularContainer(props) {
+  return (
+    <div className="popular-here">
+      <h2>Popular Now</h2>
+      {/* {props.movie.length ? (
+        <List>
+        {props.movies.map(movie => (
+          <ListItem key={movie.id}>
+            <PopCards movie={movie}/>
+          </ListItem>
+        ))}
+      </List>
+      ) : (
+        <h3 id="no-results">No Results Found</h3>
+      )} */}
+    </div>
   )
 }
 
@@ -108,6 +131,7 @@ class Books extends Component {
                 isLog={this.state.isLog}
                 onUserLoggedIn={this.handleOnUserLoggedIn}
               />
+              <PopularContainer />
               
       </React.Fragment>
       

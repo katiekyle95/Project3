@@ -87,6 +87,20 @@ function SeeComments(props) {
     )
 }
 
+function AddButtonsA(props) {
+    
+    
+      return (
+        
+        <div className="add-buttonsa">
+            <button className="add-watched">Watched</button>
+            <button className="add-to-watch">To Watch</button>            
+        </div>
+        )  
+    }
+    
+   
+
 
 
 class MovieInfo extends Component {
@@ -121,7 +135,7 @@ class MovieInfo extends Component {
     }
 
     render() {
-
+        var {userName, isLoggedIn} = this.props;
         var {movie} = this.props;
 
         if ( movie.title === undefined )
@@ -216,11 +230,7 @@ class MovieInfo extends Component {
                  </div>    
          </div> 
          <div className="user-rate">
-         <div className="add-buttonsa">
-                    <button className="add-watched">Watched</button>
-                    <button className="add-to-watch">To Watch</button>
-                    
-         </div>
+         <AddButtonsA />
                 <hr id="sep-ratings"></hr>
                 <div className="rate-this-movie">
                     <h2 id="rate-this">Rate this Movie</h2>

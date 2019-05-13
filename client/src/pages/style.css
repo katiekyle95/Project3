@@ -1,3 +1,19 @@
+.popular-here {
+    background-color: black;
+    
+    width: 80%;
+    
+    margin: 10px auto;
+    text-align: center;
+}
+
+.popular-here h2 {
+    color: white;
+    font-family: "roboto";
+    font-size: 16px;
+    padding: 15px;
+}
+
 .results-here {
     background-color: black;
     
@@ -12,6 +28,11 @@
     font-family: "roboto";
     font-size: 16px;
     padding: 15px;
+}
+
+#no-results {
+    color: white;
+    font-family: "roboto";
 }
 
 .movie-here {

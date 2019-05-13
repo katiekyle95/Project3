@@ -23,8 +23,8 @@ function HorrorNav(props) {
       var greeting = 'Hello, ' + props.userName;
       return (
         <Nav> 
-          <button type="button" className="toLogIn">{greeting}</button>
-          <a href="/profile">MY PROFILE</a>
+          <a href="/profile" className="toLogIn">{greeting}</a>
+            <a href="/#"></a>
           <button type="button" onClick={props.onSearch} className="toSearch">SEARCH</button>
       </Nav>
   
@@ -34,7 +34,7 @@ function HorrorNav(props) {
     return (
       <Nav> 
         <button type="button" onClick={props.onShowLog} className="toLogIn">LOG IN</button>
-        <a href="#">MY PROFILE</a>
+        <a href="#"></a>
         <button type="button" onClick={props.onSearch} className="toSearch">SEARCH</button>
       </Nav>
     )
