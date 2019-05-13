@@ -41,7 +41,7 @@ class LogIn extends Component {
 
     handleOnLogIn = (event) => {
         this.setState ({ isSignUp: false})
-    }
+    };
 
 render() {
     return (
@@ -52,6 +52,9 @@ render() {
                 <Close onClick={this.handleOnClose}/>
                 <Search />
               </Modal>
+              <div>
+                  
+              </div>
               <Loginbox handleOnLogIn={this.handleOnLogIn} handleOnSign={this.handleOnSign} isSignUp={this.state.isSignUp} />
                 
             

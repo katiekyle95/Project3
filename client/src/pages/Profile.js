@@ -8,6 +8,7 @@ import Modal from "../components/Modal";
 import Close from "../components/Close";
 import Search from "../components/Search";
 import Loginbox from "../components/LogInForms";
+import ProfilePage from "../components/ProfilePage";
 import { Link } from "react-router-dom";
 import { Col, Row, Container } from "../components/Grid";
 import { List, ListItem } from "../components/List";
@@ -23,7 +24,7 @@ function HorrorNav(props) {
     return (
       <Nav> 
         <button type="button" className="toLogIn">{greeting}</button>
-        <a href="/profile">MY PROFILE</a>
+        <a href="#">MY PROFILE</a>
         <button type="button" onClick={props.onSearch} className="toSearch">SEARCH</button>
     </Nav>
 
@@ -43,7 +44,7 @@ function HorrorNav(props) {
 
 
 
-class Books extends Component {
+class Profile extends Component {
   state = {
     isOpen: false,
     isSignUp: false,
@@ -108,11 +109,13 @@ class Books extends Component {
                 isLog={this.state.isLog}
                 onUserLoggedIn={this.handleOnUserLoggedIn}
               />
-              
+              <div className="profile-here">
+              <ProfilePage />
+              </div>             
       </React.Fragment>
       
     );
   }
 }
 
-export default Books;
+export default Profile;

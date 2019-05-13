@@ -1,46 +1,126 @@
-.box {
-    background-color: rgb(85, 85, 85);
-    padding-bottom: 40px;
-    width: 500px;
+.log-container {
+    position: absolute;
+    top: 0%;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.85);
     text-align: center;
+}
+
+.logtitle {
+    margin-top: -20px;
+    width: auto;
+    height: 35px;
+    padding: 0px 25px 25px 25px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+hr {
+    width: 80%;
+    border: none;
+    border-bottom: 1px solid rgba(129, 129, 129, 0.781);
+}
+
+.box {
+    font-family: "roboto";
+    width: 400px;
     margin: 60px auto;
+    border: 1px solid rgba(129, 129, 129, 0.781);
+    /* background-image: url("./dark_wall.png"); */
+    color: white;
+    background-color: black;
+}
+
+.closelog {
+    background: none;
+    border: none;
+    padding: 20px;
+    
+    margin-left: 82%;
+}
+
+.closelog img {
+    
+    height: 25px;
+    width: auto;
+}
+
+.formbox {
+    
+    padding-bottom: 20px;
+    
+    text-align: center;
+   
+    
+}
+
+h4 {
+    font-family: "roboto";
+    margin: 15px;
+    margin-left: -40%;
     
 }
 
 input {
-    font-size: 22px;
-    padding: 5px;
-    background-color: rgb(214, 214, 214);
-    margin: 30px auto 0px auto;
-    border: none;
+    font-family: "roboto";
+    font-size: 16px;
+    padding: 10px;
+    width: 60%;
+    background-color: black;
+    border: 1px solid rgba(129, 129, 129, 0.781);
+    margin: 0px auto;
+    text-align: center;
+    color: white;
 }
 
 .buttonshere {
     
     display: flex;
-    height: 50px;
-    margin-bottom: 10px;
+    
+    
 }
+
 
 .logbutton {
-    width: 50%;
-    background: none;
-    border: none;
+    margin: 20px auto;
+
+    padding: 10px;
+    background-color: black;
+    border: 1px solid rgba(129, 129, 129, 0.3);
     color: white;
     font-family: "roboto";
-    font-size: 20px;
+    font-size: 16px;
+    position: relative;
+    width: 50%;
 }
 
-#not {
-    background-color: black;
+.logbutton:hover {
+    color: black;
+    background-color: white;
+}
+
+h5 {
+    margin-bottom: 0px;
+    font-family: arial;
 }
 
 .logingo {
-    margin-top: 30px;
-    padding: 20px;
-    background: none;
-    border: none;
-    color: white;
     font-family: "roboto";
-    font-size: 20px;
+    font-size: 16px;
+    color: white;
+    padding: 10px;
+    width: 50%;
+    margin: 30px 0px 20px 0px;
+    background-color: black;
+    border: 1px solid rgba(129, 129, 129, 0.3);
 }
+
+.logingo:hover {
+    background-color: rgba(255, 255, 255);
+    color: black;
+}
+
+
+

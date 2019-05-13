@@ -1,0 +1,326 @@
+.all {
+    width: 85%;
+    min-width: 380px;
+    background-color: white;
+    text-align: center;
+    margin: 20px auto;
+}
+
+.page {
+    background-color: white;
+    width: 100%;
+    border: 1px solid black;
+    
+    display: flex;
+    font-family: "roboto";
+    margin-bottom: -2px;
+}
+
+
+.page h1 {
+
+    color: black;
+    font-size: 35px;
+}
+
+
+
+.page-poster {
+    height: 425px;
+    width: auto;
+
+    float: left;
+    padding: 20px;
+}
+
+.page h2 {
+    color: grey;
+    font-size: 25px;
+    margin-left: 15px;
+}
+
+.movie-text {
+    background-color: white;
+    width: 100%;
+    text-align: left;
+    margin-right: 10px;
+
+
+}
+
+.movie-title {
+    display: flex;
+    margin-top: 10px;
+    height: 65px;
+    align-items: baseline;
+
+}
+
+
+
+.movie-details {
+
+    margin: 0px;
+}
+
+
+
+.add-buttonsa {
+    text-align: center;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.add-buttonsa button {
+    background: black;
+    color: white;
+    border: 1px solid black;
+    font-family: "roboto";
+    font-size: 16px;
+    padding: 10px;
+    width: 40%;
+    margin-bottom: 15px;
+}
+
+.add-buttonsa button:hover {
+    background-color: white;
+    color: black;
+
+}
+
+.movie-ratings {
+    height: 80px;
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.movie-ratings h3 {
+    font-size: 16px;
+    margin-bottom: 0px;
+}
+
+.movie-ratings h2 {
+    color: black;
+    margin-top: 8px;
+    font-weight: lighter;
+}
+
+.ratinga {
+    text-align: center;
+
+}
+
+.ratinga h3 {
+    margin-top: 5px;
+}
+
+.ratinga h2 {
+    margin-bottom: 5px;
+}
+
+.ratinga img {
+    height: 25px;
+    width: 25px;
+    margin-right: 3px;
+}
+
+.single-line {
+
+    display: flex;
+    align-items: baseline;
+}
+
+.single-line h3,
+p {
+    font-size: 18px;
+    margin: 6px;
+}
+
+.page-overview {}
+
+.page-overview h3,
+p {
+    font-size: 18px;
+    margin: 6px;
+}
+
+.user-rate {
+    background-color: white;
+    width: 100%;
+    border: 1px solid black;
+    padding-top: 2px;
+    font-family: "roboto";
+    margin-bottom: 0px;
+    bottom: 4px;
+    position: inherit;
+
+}
+
+.user-rate-content {
+    margin: 15px;
+    
+    margin-top: 0px;
+    justify-content: space-evenly;
+    display: flex;
+}
+
+.user-rate-content h2 {
+    margin: 0px;
+    font-family: "roboto";
+}
+
+.rating-label {
+  text-align: center;
+  width: 130px;
+  margin-bottom: 10px;
+   
+}
+
+.rate-this-movie {
+   
+    justify-content: center;
+    display: flex;
+    
+}
+
+#rate-this {
+    font-family: "roboto";
+    margin-top: 10px;
+    padding-bottom: 4px;
+    margin-bottom: 0px;
+    border-bottom: 2px solid black;
+}
+
+#sep-ratings {
+    border: 1.5px solid black;
+    width: 90%;
+    margin: 20px auto;
+}
+
+/* STARS */
+
+#reviewStars-input input:checked ~ label, #reviewStars-input label, #reviewStars-input label:hover, #reviewStars-input label:hover ~ label {
+    background: url('./stars.png') no-repeat;
+  }
+  
+  #reviewStars-input {
+    
+    width: 133px;
+    margin-right: 0px;
+    
+  }
+  
+  #reviewStars-input input {
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+    opacity: 0;
+    
+    width: 0px;
+    height: 0px;
+    
+    
+    top: 0;
+    z-index: 0;
+  }
+  
+  #reviewStars-input input:checked ~ label {
+    background-position: 0px -22px;
+    height: 22px;
+    width: 24px;
+  }
+  
+  #reviewStars-input label {
+    background-position: 0 0;
+    height: 22px;
+    width: 24px;
+    float: right;
+    cursor: pointer;
+    margin-right: 2px;
+    
+    position: relative;
+    z-index: 1;
+  }
+  
+  #reviewStars-input label:hover, #reviewStars-input label:hover ~ label {
+    background-position: 0 -22px;
+    height: 22px;
+    width: 24px;
+  }
+  
+  /* END OF STARS */
+ 
+.write-comment {
+    
+    
+}
+
+.comments-here {
+    margin-bottom: 40px;
+}
+
+.comment {
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left;
+    border: 2px solid black;
+    width: 90%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: baseline;
+    background-color: rgba(201, 201, 201, 0.75);
+}
+
+.on-comment {
+    width: 40%;
+    font-family: "roboto";
+    font-size: 20px;
+    margin-top: 15px;
+}
+
+.comment-content {
+    
+    
+    width: 90%;
+    margin: 15px auto;
+    
+}
+
+#time-comment {
+    text-align: right;
+    font-size: 16px;
+}
+
+.write-content {
+    
+    width: 80%;
+    border: 2px solid black;
+    background: none;
+}
+
+.post-comment {
+    background: black;
+    color: white;
+    border: 1px solid black;
+    font-family: "roboto";
+    font-size: 16px;
+    padding: 10px;
+    width: 150px;
+    margin-bottom: 15px;
+    margin-top: 15px;
+}
+
+.post-comment:hover {
+    background-color: white;
+    color: black;
+
+}
+
+.recommended-here {
+    display: flex;
+    
+    margin-top: 15px;
+    margin-bottom: 15px;
+}

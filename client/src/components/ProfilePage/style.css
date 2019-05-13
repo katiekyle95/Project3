@@ -1,0 +1,17 @@
+#prof-title {
+    font-family: "Roboto";
+    color: black;
+}
+
+.scrolling-wrapper-flexbox {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+  
+    
+  }
+  
+  .scroll-card {
+      flex: 0 0 auto;
+      width: 200px;
+    }
