@@ -67,8 +67,8 @@ async function seedDB(users, reviews) {
     console.log(data.result.n + " user records inserted!");
 
     await db.Review.deleteMany({});
-    data = await db.Review.collection.insertMany(reviews);
-    console.log(data.result.n + " review records inserted!");
+//    data = await db.Review.collection.insertMany(reviews);
+//    console.log(data.result.n + " review records inserted!");
 
     process.exit(0);
 
@@ -109,7 +109,7 @@ for (user of userList) {
         scariness: scariness,
         comment: comment
       }
-//      reviewSeed.push(review);
+      reviewSeed.push(review);
 
       watched.push(id);
     } else {
