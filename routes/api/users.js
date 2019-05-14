@@ -13,4 +13,8 @@ router.route("/:name/watched/:movieId")
 router.route("/:name/wanted/:movieId")
   .post(userController.wanted)
 
+// Matches with "/api/user/:name/clear/:movieId"
+router.route("/:name/clear/:movieId")
+.post(userController.clear)
+
 module.exports = router;

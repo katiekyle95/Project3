@@ -4,24 +4,32 @@ import Brood from "./../RecCards/brood.jpg";
 
 
 function WatchedCard(props) {
+
+    var {title,poster_path} = props.movie;
+    var posterImg = 'http://image.tmdb.org/t/p/w185' + poster_path;
+    
     return (
         <div className="watched-card-space"> 
                 <a href="#">  
-                    <img className="watched-poster" src={ Brood }></img>
+                    <img className="watched-poster" src={posterImg}></img>
                     <br></br>
-                    <span className="watched-name">The Brood</span>
+                    <span className="watched-name">{title}</span>
                 </a>
         </div>
     )
 }
 
 function ToWatchCard(props) {
+
+    var {title,poster_path} = props.movie;
+    var posterImg = 'http://image.tmdb.org/t/p/w185' + poster_path;
+
     return (
         <div className="watched-card-space"> 
                 <a href="#">  
-                    <img className="watched-poster" src={ Brood }></img>
+                    <img className="watched-poster" src={ posterImg }></img>
                     <br></br>
-                    <span className="watched-name">The Brood</span>
+                    <span className="watched-name">{title}</span>
                 </a>
         </div>
     )
@@ -45,31 +53,44 @@ class ProfilePage extends Component {
     };
    
     render() {
+
+        var {watched, wanted, userName} = this.props;
+        
+
         return (
             <React.Fragment>
             <div className="all">
-            <ProfileTitle />
+            <ProfileTitle userName={userName}/>
             <div className="rate-this-movie">
                     <h2 id="rate-this">Watched</h2>
             </div>
             <div class="scrolling-wrapper-flexbox">
-                <WatchedCard />
-                <WatchedCard />
-                <WatchedCard />
-                <WatchedCard />
-                <WatchedCard />
-                <WatchedCard />
+
+                {watched.length ? (
+                    <div>
+                    {watched.map(movie => (
+                    <WatchedCard key={movie.id} movie={movie}/>
+                    ))}
+                </div>
+                ) : (
+                    <h3 id="no-results">No Results Found</h3>
+                )}
+
             </div>
             <div id="spacer"></div>
             <div className="rate-this-movie">
                     <h2 id="rate-this">To Watch</h2>
             </div>
             <div class="scrolling-wrapper-flexbox">
-                <ToWatchCard />
-                <ToWatchCard />
-                <ToWatchCard />
-                <ToWatchCard />
-                <ToWatchCard />
+                {wanted.length ? (
+                    <div>
+                    {wanted.map(movie => (
+                    <ToWatchCard key={movie.id} movie={movie}/>
+                    ))}
+                </div>
+                ) : (
+                    <h3 id="no-results">No Results Found</h3>
+                )}
             
             </div>
             <div id="spacer"></div>
@@ -81,3 +102,8 @@ class ProfilePage extends Component {
 }
 
 export default ProfilePage;
+
+
+//{watched.map(movie => (
+//    <WatchedCard movie={movie}/>
+//     ))}

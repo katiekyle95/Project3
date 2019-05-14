@@ -50,6 +50,7 @@ function ResultContainer(props) {
   }
 
 
+
     return (
         <div className="results-here" >
             <h2 >Search Results for   "<span>{props.searchName}</span>"</h2>
@@ -57,7 +58,13 @@ function ResultContainer(props) {
               <List>
                 {props.movies.map(movie => (
                   <ListItem key={movie.id}>
-                    <ResultCards movie={movie}/>
+                    <ResultCards 
+                      movie={movie} 
+                      watched={props.watched} 
+                      wanted={props.wanted}
+                      onWatched={props.onWatched}
+                      onWanted={props.onWanted}
+                      />
                   </ListItem>
                 ))}
               </List>
@@ -77,14 +84,45 @@ function ResultContainer(props) {
       movies: [],
       isSearching: false,
       searchName: "",
+      watched: [],
+      wanted: [],
     };
   
-    componentDidMount() {
+    async componentDidMount() {
       var searchName = this.props.match.params.name;
       this.setState({ isSearching: true, searchName: searchName,} );
-      API.movieSearch(searchName)
-        .then(res => this.setState({ movies: res.data, isSearching: false }))
-        .catch(err => console.log(err));
+
+
+      try {
+        var res = await API.movieSearch(searchName);
+        this.setState({ movies: res.data, isSearching: false })
+      }
+      catch (err)
+      {
+        console.log( err.message );
+      }
+      
+      try {
+        var userRes = await API.getUser( this.props.userName );
+        this.setState( {watched: userRes.data.watched, wanted: userRes.data.wanted });
+      }
+      catch (err)
+      {
+        console.log( err.message );
+      }
+
+    }
+
+    getUserData = async () =>
+    {
+      try {
+        var userRes = await API.getUser( this.props.userName );
+        this.setState( {watched: userRes.data.watched, wanted: userRes.data.wanted });
+      }
+      catch (err)
+      {
+        console.log( err.message );
+      }
     }
   
     handleOnSearch = (event) => {
@@ -112,6 +150,27 @@ function ResultContainer(props) {
     handleOnHideLog = (event) => {
       this.setState ({ isLog: false })
     }
+    
+    handleOnWatched = async (movieId) => {
+      var isWatched = ( this.state.watched.indexOf( movieId ) != -1 );
+      if ( isWatched )
+      {
+        await API.clear( this.props.userName, movieId );
+      } else {
+        await API.addWatched( this.props.userName, movieId );
+      }
+      this.getUserData();
+    }
+    handleOnWanted = async (movieId) => {
+      var isWanted = ( this.state.wanted.indexOf( movieId ) != -1 ); 
+      if ( isWanted )
+      {
+        await API.clear( this.props.userName, movieId );
+      } else {
+        await API.addWanted( this.props.userName, movieId );
+      }
+      this.getUserData();
+    }
   
     render() {
       var {userName, isLoggedIn} = this.props;
@@ -138,9 +197,13 @@ function ResultContainer(props) {
                 onUserLoggedIn={this.handleOnUserLoggedIn}
               />
               <ResultContainer 
-                movies={this.state.movies} 
+                movies={this.state.movies}
+                watched={this.state.watched}
+                wanted={this.state.wanted}
                 isSearching={this.state.isSearching}
                 searchName={this.state.searchName}
+                onWatched={this.handleOnWatched}
+                onWanted={this.handleOnWanted}
                 />
                     
                 

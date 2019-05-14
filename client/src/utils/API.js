@@ -23,11 +23,16 @@ export default {
   },
 
   addWatched: function (userName, movieId) {
-    return axios.get(`/api/user/${userName}/watched/${movieId}`);
+    var url = `/api/user/${userName}/watched/${movieId}`;
+    return axios.post(`/api/user/${userName}/watched/${movieId}`);
   },
 
   addWanted: function (userName, movieId) {
-    return axios.get(`/api/user/${userName}/wanted/${movieId}`);
+    return axios.post(`/api/user/${userName}/wanted/${movieId}`);
+  },
+
+  clear: function (userName, movieId) {
+    return axios.post(`/api/user/${userName}/clear/${movieId}`);
   },
 
   movieDiscover: function () {
@@ -53,5 +58,13 @@ export default {
     };
     return axios.post('/api/movies/review', reviewData);
   },
+  
+ movieList: function (idList) {
+	const data = {
+     movieList: idList,
+   };  
+   return axios.post(`/api/movies/list`, data);
+ },
+
 
 };

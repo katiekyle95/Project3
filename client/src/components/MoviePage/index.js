@@ -81,6 +81,7 @@ function StarScare(props) {
     )
 }
 
+
 function SeeComments(props) {
     return (
         <button className="see-comments" onClick={props.onClick}><span id="num-comments">X</span> Comments</button>
@@ -89,12 +90,23 @@ function SeeComments(props) {
 
 function AddButtonsA(props) {
     
+    var watchedStyle = {opacity:'1'};
+    if ( props.isWatched )
+    {
+        watchedStyle = {opacity:'0.5'};
+    }
+    
+    var wantedStyle = {opacity:'1'};
+    if ( props.isWanted )
+    {
+        wantedStyle = {opacity:'0.5'};
+    }
     
       return (
         
         <div className="add-buttonsa">
-            <button className="add-watched">Watched</button>
-            <button className="add-to-watch">To Watch</button>            
+            <button className="add-watched" style={watchedStyle} onClick={props.onWatched}>Watched</button>
+            <button className="add-to-watch"style={wantedStyle} onClick={props.onWanted}>To Watch</button>
         </div>
         )  
     }
@@ -107,10 +119,12 @@ class MovieInfo extends Component {
     
     state = {
         isComment: false,
-        qualityRating: 1,
-        entertainmentRating: 1,
-        scareRating: 1
+        comment: "",
     };
+
+    userQ = 1;
+    userE = 1;
+    userS = 1;
 
     handleOnYesComment = (event) => {
         this.setState ({ isComment: true })
@@ -120,18 +134,31 @@ class MovieInfo extends Component {
         switch( name )
         {
             case 'qualityRating':
-                this.setState( {qualityRating: nextValue});    
+            this.userQ = nextValue;
             break;
 
             case 'entertainmentRating':
-            this.setState( {entertainmentRating: nextValue});    
+            this.userE = nextValue;
             break;
 
             case 'scareRating':
-            this.setState( {scareRating: nextValue});    
+            this.userS = nextValue;   
             break;
         }
+        this.updateReview();
         
+    }
+
+    updateReview = () => {
+        this.props.onUpdateReview(this.userQ, this.userE, this.userS);
+    }
+
+    handleOnWatched = () => {
+        this.props.onWatched();
+    }
+
+    handleOnWanted = () => {
+        this.props.onWanted();
     }
 
     render() {
@@ -152,6 +179,11 @@ class MovieInfo extends Component {
         var year = release_date.substring(0,4);
         var posterImg = 'http://image.tmdb.org/t/p/w342' + poster_path;
         var {original_language} = movie;
+        
+        this.userQ = movie.userQ;
+        this.userE = movie.userE;
+        this.userS = movie.userS;
+
         var language;
         switch ( original_language )
         {
@@ -180,8 +212,8 @@ class MovieInfo extends Component {
                 language = "English";
                 break;
         }
-
-
+        var { recommendations } = movie;
+        var {isWatched, isWanted } = this.props;
 
         return (
             <React.Fragment>
@@ -198,15 +230,15 @@ class MovieInfo extends Component {
                     <div className="movie-ratings">
                         <div className="ratinga">
                             <h3>Quality:</h3>
-                            <h2><img src={Star}></img><span className="quality-average">4.9</span></h2>
+                            <h2><img src={Star}></img><span className="quality-average">{movie.averageQuality}</span></h2>
                         </div>
                         <div className="ratinga">
                             <h3>Entertainment Value:</h3>
-                            <h2><img src={Star}></img><span className="ent-average">4.6</span></h2>
+                            <h2><img src={Star}></img><span className="ent-average">{movie.averageEntertainment}</span></h2>
                         </div>
                         <div className="ratinga">
                             <h3>Scariness:</h3>
-                            <h2><img src={Star}></img><span className="scariness-average">3</span></h2>
+                            <h2><img src={Star}></img><span className="scariness-average">{movie.averageScariness}</span></h2>
                         </div>   
                     </div>
                     <div className="movie-details">
@@ -230,7 +262,12 @@ class MovieInfo extends Component {
                  </div>    
          </div> 
          <div className="user-rate">
-         <AddButtonsA />
+         <AddButtonsA 
+            onWatched={this.handleOnWatched} 
+            onWanted={this.handleOnWanted}
+            isWatched={isWatched}
+            isWanted={isWanted}
+            />
                 <hr id="sep-ratings"></hr>
                 <div className="rate-this-movie">
                     <h2 id="rate-this">Rate this Movie</h2>
@@ -238,20 +275,20 @@ class MovieInfo extends Component {
                 
             <div className="user-rate-content">
                     
-                    <StarQual starRating={this.state.qualityRating} onStarClick={this.handleOnStarClick}/>
-                    <StarEnt starRating={this.state.entertainmentRating} onStarClick={this.handleOnStarClick}/>
-                    <StarScare starRating={this.state.scareRating} onStarClick={this.handleOnStarClick}/>
+                    <StarQual starRating={this.userQ} onStarClick={this.handleOnStarClick}/>
+                    <StarEnt starRating={this.userE} onStarClick={this.handleOnStarClick}/>
+                    <StarScare starRating={this.userS} onStarClick={this.handleOnStarClick}/>
             </div>
             <hr id="sep-ratings"></hr>
                 <div className="rate-this-movie">
                     <h2 id="rate-this">Recommended Movies</h2>
                 </div>
             <div className="recommended-here">
-                <RecCard />
-                <RecCard />
-                <RecCard />
-                <RecCard />
-                <RecCard />
+                <RecCard movie={recommendations[0]}/>
+                <RecCard movie={recommendations[1]}/>
+                <RecCard movie={recommendations[2]}/>
+                <RecCard movie={recommendations[3]}/>
+                <RecCard movie={recommendations[4]}/>
             </div>    
 
             

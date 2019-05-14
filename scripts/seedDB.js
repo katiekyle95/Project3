@@ -90,9 +90,9 @@ for (user of userList) {
     var randNum = Math.floor(Math.random() * 5);
     if (randNum < 2) {
 
-      var quality = Math.floor(Math.random() * 10) + 1;
-      var entertainment = Math.floor(Math.random() * 10) + 1;
-      var scariness = Math.floor(Math.random() * 10) + 1;
+      var quality = Math.floor(Math.random() * 5) + 1;
+      var entertainment = Math.floor(Math.random() * 5) + 1;
+      var scariness = Math.floor(Math.random() * 5) + 1;
 
       var commentRand = Math.floor(Math.random() * 3);
       var comment = "";
@@ -109,7 +109,7 @@ for (user of userList) {
         scariness: scariness,
         comment: comment
       }
-      reviewSeed.push(review);
+//      reviewSeed.push(review);
 
       watched.push(id);
     } else {

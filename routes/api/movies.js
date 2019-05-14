@@ -20,4 +20,9 @@ router
   .route("/review")
   .post(reviewController.create)
 
+// Matches with "/api/movies/list"
+router
+  .route("/list")
+  .post(moviesController.list)
+
 module.exports = router;

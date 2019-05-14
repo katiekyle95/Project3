@@ -10,12 +10,35 @@ class ResultCards extends Component {
         window.location = '/movie/' + id;
     };
     
+    onWatched = () => {
+        this.props.onWatched( this.props.movie.id );
+    };
+
+    onWanted = () => {
+        this.props.onWanted( this.props.movie.id );
+    };
+    
 
     render() {
 
-        var {title, overview, release_date,poster_path} = this.props.movie;
+        var {id, title, overview, release_date,poster_path} = this.props.movie;
         var year = release_date.substring(0,4);
         var posterImg = 'http://image.tmdb.org/t/p/w185' + poster_path;
+        var {wanted, watched} = this.props;
+        var isWatched = (watched.indexOf(id) != -1 );
+        var isWanted = (wanted.indexOf(id) != -1 );
+        var watchedStyle = {opacity:'1'};
+        if ( isWatched )
+        {
+            watchedStyle = {opacity:'0.5'};
+        }
+        
+        var wantedStyle = {opacity:'1'};
+        if ( isWanted )
+        {
+            wantedStyle = {opacity:'0.5'};
+        }
+    
 
         return (
            <div className="card">
@@ -47,8 +70,8 @@ class ResultCards extends Component {
                     <p><span className="movie-overview">{overview}</span></p>
                 <div className="spacer"></div>
                 <div className="add-buttons">
-                    <button className="add-watched">Watched</button>
-                    <button className="add-to-watch">To Watch</button>
+                    <button className="add-watched" onClick={this.onWatched} style={watchedStyle} >Watched</button>
+                    <button className="add-to-watch"onClick={this.onWanted} style={wantedStyle} >To Watch</button>
                 </div>
                 
                 </div>

@@ -84,34 +84,60 @@ module.exports = {
       url = `https://api.themoviedb.org/3/movie/${id}/recommendations?api_key=a57716cc5f32391a19f6f29ee191775c&language=en-US&page=1`;
       const recommendations = await axios.get(url);
 
-      
-      // get credits
-      url =`https://api.themoviedb.org/3/movie/${id}/credits?api_key=a57716cc5f32391a19f6f29ee191775c`
-      const credits = await axios.get(url);
-      var director = '';
-      const crew = credits.data.crew;
-      for ( var crewIndex=0; crewIndex<crew.length; crewIndex++)
-      {
-        if ( crew[crewIndex].job == 'Director')
-        {
-          director = crew[crewIndex].name;
-          break;
-        }
-      }
-      
-      
       // get any reviews
       const reviews = await db.Review.find().byMovieId(id);
+      var avgQ = 0;
+      var avgE = 0;
+      var avgS = 0;
+      if (reviews.length > 0) {
+        for (var reviewIndex = 0; reviewIndex < reviews.length; reviewIndex++) {
+          const review = reviews[reviewIndex];
+          avgQ += review.quality;
+          avgE += review.entertainment;
+          avgS += review.scariness;
+        }
+        avgQ /= reviews.length;
+        avgE /= reviews.length;
+        avgS /= reviews.length;
+      }
 
       var movie = details.data;
-      movie.recommendations = recommendations.data.results.slice( 0, MAX_RECOMMENDATIONS );
+      movie.recommendations = recommendations.data.results.slice(0, MAX_RECOMMENDATIONS);
       movie.reviews = reviews;
-      movie.director = director;
+      movie.averageQuality = avgQ.toFixed(1);
+      movie.averageEntertainment = avgE.toFixed(1);
+      movie.averageScariness = avgS.toFixed(1);
 
       res.json(movie);
     } catch (err) {
       res.status(422).json(err.message)
     }
   },
+
+  
+  list: async function (req, res) {
+    try {
+      const movieList = req.body.movieList;
+
+      var listData = [];
+      for ( movieId of movieList )
+      {
+        var url = `https://api.themoviedb.org/3/movie/${movieId}?api_key=a57716cc5f32391a19f6f29ee191775c&language=en-US`;
+        const details = await axios.get(url);
+        var movie = details.data;
+
+        var movieData = {
+          title: movie.title,
+          release_date: movie.release_date,
+          poster_path: movie.poster_path,
+        };
+        listData.push( movieData );
+      }
+      res.json(listData);
+    } catch (err) {
+      res.status(422).json(err);
+    }
+  },
+
 
 };

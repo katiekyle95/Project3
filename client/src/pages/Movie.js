@@ -55,7 +55,15 @@ if ( props.isSearching )
 
     return (
         <div className="movie-here">
-            <MovieInfo movie={props.movie} userName={props.userName}/>
+            <MovieInfo 
+                movie={props.movie} 
+                userName={props.userName} 
+                onUpdateReview={props.onUpdateReview}
+                onWatched={props.onWatched}
+                onWanted={props.onWanted}
+                isWatched={props.isWatched}
+                isWanted={props.isWanted}
+                />
         </div>
     )
 }
@@ -68,15 +76,35 @@ class Movie extends Component {
     isLog: false,
     movie: {},
     isSearching: false,
+    watched: false,
+    wanted: false,
   };
 
   componentDidMount() {
+    
     this.setState({isSearching: true});
     var movieId = this.props.match.params.movieId;
+    this.getData( movieId );
+
+    /*
     API.movieDetails(movieId)
-      .then(res => this.setState({ movie: res.data, isSearching:false }))
+      .then( res => { 
+          this.setState({ movie: res.data, isSearching:false })})
       .catch(err => console.log(err));
+      */
   }
+  async getData( movieId )
+  {
+    var res = await API.movieDetails(movieId);
+    var movie = res.data;
+    this.setState({ movie: movie, isSearching: false })
+
+    var userRes = await API.getUser( this.props.userName );
+    var watched = ( userRes.data.watched.indexOf( movie.id ) != -1 );
+    var wanted = ( userRes.data.wanted.indexOf( movie.id ) != -1 );
+    this.setState( {watched: watched, wanted: wanted });
+  }
+
 
 
   handleOnSearch = (event) => {
@@ -109,10 +137,66 @@ class Movie extends Component {
     this.setState ({ isLog: false })
   }
 
+  handleUpdateReview = async (qual, ent, scare) => {
+    var {movie} = this.state;
+    movie.userQ = qual;
+    movie.userE = ent;
+    movie.userS = scare;
+    
+    var movieId = movie.id;
+    var userName = this.props.userName;
+    await API.movieAddReview( userName, movieId, qual, ent, scare, "" );
+    var res = await  API.movieDetails(movieId);
+    this.setState({ movie: res.data });
+  }
+
+  handleWatched = () => {
+    if ( this.state.watched )
+    {
+        this.setState( { watched: false } );
+        API.clear( this.props.userName, this.state.movie.id );
+    } else {
+        this.setState( { watched: true, wanted: false } );
+        API.addWatched( this.props.userName, this.state.movie.id );
+    }
+  }
+
+  handleWanted = () => {
+    if ( this.state.wanted )
+    {
+        this.setState( { wanted: false } );
+        API.clear( this.props.userName, this.state.movie.id );
+    } else {
+        this.setState( { wanted: true, watched: false, } );
+        API.addWanted( this.props.userName, this.state.movie.id );
+    }
+      
+  }
 
   render() {
     var {userName, isLoggedIn} = this.props;
     var {movie} = this.state;
+
+    if ( movie.reviews != undefined )
+    {
+        var { reviews } = movie;
+        var userQ = 1;
+        var userE = 1;
+        var userS = 1;
+        for ( var i = 0; i < reviews.length; i++ )
+        {
+            if ( reviews[i].userName == userName )
+            {
+                userQ = reviews[i].quality;
+                userE = reviews[i].entertainment;
+                userS = reviews[i].scariness;
+            }
+        }
+        movie.userQ = userQ;
+        movie.userE = userE;
+        movie.userS = userS;
+    }
+
 
     return (
       <React.Fragment>
@@ -136,15 +220,19 @@ class Movie extends Component {
                 onUserLoggedIn={this.handleUserLoggedIn}
               />
 
-              <MoviePage movie={movie} userName={userName} isSearching={this.state.isSearching}/>
-            )
-            }
-              
-              
-      </React.Fragment>
-      
-    );
-  }
+              <MoviePage 
+                movie={movie} 
+                userName={userName}
+                onUpdateReview={this.handleUpdateReview}
+                isSearching={this.state.isSearching}
+                onWatched={this.handleWatched}
+                onWanted={this.handleWanted}
+                isWatched={this.state.watched}
+                isWanted={this.state.wanted}
+                />
+        </React.Fragment>
+        )
+    }
 }
 
 export default Movie;
