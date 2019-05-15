@@ -19,7 +19,32 @@ module.exports = {
       }
       var url = `https://api.themoviedb.org/3/discover/movie?api_key=a57716cc5f32391a19f6f29ee191775c&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=${page}&vote_count.gte=200&with_genres=27`;
       const response = await axios.get(url);
-      res.json(response.data.results);
+      var movies = response.data.results;
+      for( var i = 0; i < movies.length; i++)
+      {
+        var movie = movies[i];
+        // get any reviews
+        const reviews = await db.Review.find().byMovieId(movie.id);
+        var avgQ = 0;
+        var avgE = 0;
+        var avgS = 0;
+        if (reviews.length > 0) {
+          for (var reviewIndex = 0; reviewIndex < reviews.length; reviewIndex++) {
+            const review = reviews[reviewIndex];
+            avgQ += review.quality;
+            avgE += review.entertainment;
+            avgS += review.scariness;
+          }
+          avgQ /= reviews.length;
+          avgE /= reviews.length;
+          avgS /= reviews.length;
+        }
+        movie.averageQuality = avgQ.toFixed(1);
+        movie.averageEntertainment = avgE.toFixed(1);
+        movie.averageScariness = avgS.toFixed(1);
+    }
+
+      res.json(movies);
     } catch (err) {
       res.status(422).json(err.message)
     }
@@ -42,7 +67,30 @@ module.exports = {
         const movieList = response.data.results;
         for (movie of movieList) {
           if (movie.genre_ids.indexOf(HORROR_GENRE) != -1) {
+
+            // get any reviews
+            const reviews = await db.Review.find().byMovieId(movie.id);
+            var avgQ = 0;
+            var avgE = 0;
+            var avgS = 0;
+            if (reviews.length > 0) {
+              for (var reviewIndex = 0; reviewIndex < reviews.length; reviewIndex++) {
+                const review = reviews[reviewIndex];
+                avgQ += review.quality;
+                avgE += review.entertainment;
+                avgS += review.scariness;
+              }
+              avgQ /= reviews.length;
+              avgE /= reviews.length;
+              avgS /= reviews.length;
+            }
+            movie.averageQuality = avgQ.toFixed(1);
+            movie.averageEntertainment = avgE.toFixed(1);
+            movie.averageScariness = avgS.toFixed(1);
+    
+
             foundMovies.push(movie);
+
           }
         }
 
@@ -102,7 +150,20 @@ module.exports = {
       }
 
       var movie = details.data;
-      movie.recommendations = recommendations.data.results.slice(0, MAX_RECOMMENDATIONS);
+      var horrorRecs = [];
+      var recs = recommendations.data.results;
+
+      for ( var recIndex = 0; recIndex < recs.length; recIndex++ )
+      {
+        const movieRec = recs[recIndex];
+        if ( movieRec.genre_ids.indexOf( HORROR_GENRE ) != -1 )
+        {
+          horrorRecs.push( movieRec );
+        }
+      }
+
+
+      movie.recommendations = horrorRecs.slice(0, MAX_RECOMMENDATIONS);
       movie.reviews = reviews;
       movie.averageQuality = avgQ.toFixed(1);
       movie.averageEntertainment = avgE.toFixed(1);
@@ -114,7 +175,6 @@ module.exports = {
     }
   },
 
-  
   list: async function (req, res) {
     try {
       const movieList = req.body.movieList;

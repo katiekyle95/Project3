@@ -3,14 +3,16 @@ import "./style.css";
 import Brood from "./../RecCards/brood.jpg";
 
 
+
+
 function WatchedCard(props) {
 
     var {title,poster_path} = props.movie;
     var posterImg = 'http://image.tmdb.org/t/p/w185' + poster_path;
-    
+
     return (
         <div className="watched-card-space"> 
-                <a href="#">  
+                <a onClick={props.handleClick}>  
                     <img className="watched-poster" src={posterImg}></img>
                     <br></br>
                     <span className="watched-name">{title}</span>
@@ -21,12 +23,12 @@ function WatchedCard(props) {
 
 function ToWatchCard(props) {
 
+    
     var {title,poster_path} = props.movie;
     var posterImg = 'http://image.tmdb.org/t/p/w185' + poster_path;
-
     return (
         <div className="watched-card-space"> 
-                <a href="#">  
+                <a onClick={props.handleClick}>  
                     <img className="watched-poster" src={ posterImg }></img>
                     <br></br>
                     <span className="watched-name">{title}</span>
@@ -47,9 +49,8 @@ class ProfilePage extends Component {
 
     
     
-    handleMovieClicked = () => {
-        var {id} = this.props.movie;
-        window.location = '/movie/' + id;
+    handleMovieClicked = ( movieId  ) => {
+        window.location = '/movie/' + movieId;
     };
    
     render() {
@@ -64,14 +65,14 @@ class ProfilePage extends Component {
             <div className="rate-this-movie">
                     <h2 id="rate-this">Watched</h2>
             </div>
-            <div class="scrolling-wrapper-flexbox">
+            <div className="scrolling-wrapper-flexbox">
 
                 {watched.length ? (
-                    <div>
+                    <div className="watched-div">
                     {watched.map(movie => (
-                    <WatchedCard key={movie.id} movie={movie}/>
+                    <WatchedCard key={movie.id} movie={movie} handleClick={()=>this.handleMovieClicked(movie.id)}/>
                     ))}
-                </div>
+                    </div>
                 ) : (
                     <h3 id="no-results">No Results Found</h3>
                 )}
@@ -81,11 +82,11 @@ class ProfilePage extends Component {
             <div className="rate-this-movie">
                     <h2 id="rate-this">To Watch</h2>
             </div>
-            <div class="scrolling-wrapper-flexbox">
+            <div className="scrolling-wrapper-flexbox">
                 {wanted.length ? (
-                    <div>
+                    <div className="watched-div">
                     {wanted.map(movie => (
-                    <ToWatchCard key={movie.id} movie={movie}/>
+                    <ToWatchCard key={movie.id} movie={movie} handleClick={()=>this.handleMovieClicked(movie.id)}/>
                     ))}
                 </div>
                 ) : (

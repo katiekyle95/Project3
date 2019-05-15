@@ -18,12 +18,14 @@
 
 
 .page h1 {
-
+    margin: 0px;
     color: black;
     font-size: 35px;
 }
 
-
+#year {
+    margin: 10px;
+}
 
 .page-poster {
     height: 425px;
@@ -44,16 +46,16 @@
     width: 100%;
     text-align: left;
     margin-right: 10px;
-
+    padding: 0px;
 
 }
 
 .movie-title {
     display: flex;
-    margin-top: 10px;
-    height: 65px;
+    margin-top: 15px;
+    
     align-items: baseline;
-
+    
 }
 
 
@@ -88,7 +90,9 @@
 
 }
 
+
 .movie-ratings {
+    
     height: 80px;
     display: flex;
     justify-content: space-evenly;
@@ -320,7 +324,7 @@ p {
 
 .recommended-here {
     display: flex;
-    
+    align-items: flex-start;
     margin-top: 15px;
     margin-bottom: 15px;
 }

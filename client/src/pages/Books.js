@@ -14,7 +14,8 @@ import { Col, Row, Container } from "../components/Grid";
 import { List, ListItem } from "../components/List";
 import { Input, TextArea, FormBtn } from "../components/Form";
 import "./style.css";
-
+import Landing from "./landing.jpg";
+import ResultCards from "../components/ResultsCards";
 
 function HorrorNav(props) {
   
@@ -43,23 +44,43 @@ function HorrorNav(props) {
 }
 
 
-function PopularContainer(props) {
-  return (
-    <div className="popular-here">
-      <h2>Popular Now</h2>
-      {/* {props.movie.length ? (
-        <List>
-        {props.movies.map(movie => (
-          <ListItem key={movie.id}>
-            <PopCards movie={movie}/>
-          </ListItem>
-        ))}
-      </List>
-      ) : (
-        <h3 id="no-results">No Results Found</h3>
-      )} */}
-    </div>
-  )
+function ResultContainer(props) {
+  if ( props.isSearching )
+  {
+    return (
+      <div className="results-here" >
+          <h2 >Popular now</h2>
+          <div className="spinner-div fa-3x"  >
+            <i className="fas fa-spinner fa-spin"></i>
+          </div>
+      </div>
+    );
+  }
+
+
+
+    return (
+        <div className="results-here" >
+            <h2 >Popular now</h2>
+            {props.movies.length ? (
+              <List>
+                {props.movies.map(movie => (
+                  <ListItem key={movie.id}>
+                    <ResultCards 
+                      movie={movie} 
+                      watched={props.watched} 
+                      wanted={props.wanted}
+                      onWatched={props.onWatched}
+                      onWanted={props.onWanted}
+                      />
+                  </ListItem>
+                ))}
+              </List>
+            ) : (
+              <h3 id="no-results">No Results Found</h3>
+            )}
+        </div>
+    )
 }
 
 
@@ -70,10 +91,51 @@ class Books extends Component {
   state = {
     isOpen: false,
     isSignUp: false,
-    isLog: false
+    isLog: false,
+    movies: [],
+    isSearching: false,
+    watched: [],
+    wanted: [],
+
   };
 
-  
+  async componentDidMount() {
+    var searchName = this.props.match.params.name;
+    this.setState({ isSearching: true, searchName: searchName,} );
+
+
+    try {
+      var res = await API.movieDiscover();
+      this.setState({ movies: res.data, isSearching: false })
+    }
+    catch (err)
+    {
+      console.log( err.message );
+    }
+    
+    try {
+      var userRes = await API.getUser( this.props.userName );
+      this.setState( {watched: userRes.data.watched, wanted: userRes.data.wanted });
+    }
+    catch (err)
+    {
+      console.log( err.message );
+    }
+
+  }
+
+  getUserData = async () =>
+  {
+    try {
+      var userRes = await API.getUser( this.props.userName );
+      this.setState( {watched: userRes.data.watched, wanted: userRes.data.wanted });
+    }
+    catch (err)
+    {
+      console.log( err.message );
+    }
+  }
+
 
   handleOnSearch = (event) => {
     this.setState ({ isOpen: true })
@@ -107,12 +169,36 @@ class Books extends Component {
     this.forceUpdate();
   }
 
+  handleOnWatched = async (movieId) => {
+    var isWatched = ( this.state.watched.indexOf( movieId ) != -1 );
+    if ( isWatched )
+    {
+      await API.clear( this.props.userName, movieId );
+    } else {
+      await API.addWatched( this.props.userName, movieId );
+    }
+    this.getUserData();
+  }
+  handleOnWanted = async (movieId) => {
+    var isWanted = ( this.state.wanted.indexOf( movieId ) != -1 ); 
+    if ( isWanted )
+    {
+      await API.clear( this.props.userName, movieId );
+    } else {
+      await API.addWanted( this.props.userName, movieId );
+    }
+    this.getUserData();
+  }
+
+
   render() {
     var {userName, isLoggedIn} = this.props;
 
     return (
       <React.Fragment>
+          
               <Header />
+              
               <HorrorNav 
                 onSearch={this.handleOnSearch} 
                 onShowLog={this.handleOnShowLog}
@@ -131,8 +217,20 @@ class Books extends Component {
                 isLog={this.state.isLog}
                 onUserLoggedIn={this.handleOnUserLoggedIn}
               />
-              <PopularContainer />
-              
+              <div className="home-here">
+               
+              </div>
+              <ResultContainer 
+                movies={this.state.movies}
+                watched={this.state.watched}
+                wanted={this.state.wanted}
+                isSearching={this.state.isSearching}
+                searchName={this.state.searchName}
+                onWatched={this.handleOnWatched}
+                onWanted={this.handleOnWanted}
+                />
+
+
       </React.Fragment>
       
     );

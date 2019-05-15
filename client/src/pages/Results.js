@@ -35,6 +35,8 @@ function HorrorNav(props) {
     </Nav>
   )
 }
+
+
   
 function ResultContainer(props) {
   if ( props.isSearching )
@@ -205,7 +207,7 @@ function ResultContainer(props) {
                 onWatched={this.handleOnWatched}
                 onWanted={this.handleOnWanted}
                 />
-                    
+              
                 
                 
         </React.Fragment>

@@ -1,17 +1,44 @@
-.popular-here {
+.home-here {
     background-color: black;
     
     width: 80%;
     
     margin: 10px auto;
     text-align: center;
+    
 }
 
-.popular-here h2 {
-    color: white;
+
+
+.home-container {
+    
+    width: 90%;
+    margin: 20px auto;
+    
+    color: #cc3333;
     font-family: "roboto";
-    font-size: 16px;
-    padding: 15px;
+}
+
+.home-container h1 {
+    color: white;
+    margin: 0px;
+    padding: 10px;
+}
+
+.home-container h2 {
+    color: white;
+    margin: 0px;
+    padding-bottom: 20px;
+}
+
+.descript h2 {
+    color: #cc3333;
+    margin: 5px;
+}
+
+.descript {
+    display: flex;
+    justify-content: center;
 }
 
 .results-here {
@@ -21,6 +48,7 @@
     
     margin: 10px auto;
     text-align: center;
+    
 }
 
 .results-here h2 {
@@ -59,6 +87,26 @@
     margin-top: 25px;
     color: #cc3333;
 }
+
+.four {
+    width: 100%;
+    height: auto;
+    position: absolute;
+}
+
+.to-home {
+    position: relative;
+    z-index: 10;
+    left: 30px;
+    top: 30px;
+}
+
+.four-logo {
+    height: 60px;
+    width: auto;
+}
+
+
 
 /* width */
 ::-webkit-scrollbar {

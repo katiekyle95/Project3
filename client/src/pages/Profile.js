@@ -167,7 +167,8 @@ class Profile extends Component {
               />
               <div className="profile-here">
               <ProfilePage userName={userName} watched={this.state.watchedMovies} wanted={this.state.wantedMovies}/>
-              </div>             
+              </div>   
+                      
       </React.Fragment>
       
     );

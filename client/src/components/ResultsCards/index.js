@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import "./style.css";
 import Wicker from "./wicker.jpg";
 import Star from "./../MoviePage/star.png";
+import StarRatingComponent from 'react-star-rating-component';
+
 
 class ResultCards extends Component {
 
@@ -51,21 +53,21 @@ class ResultCards extends Component {
                         <h2>(<span className="movie-year">{year}</span>)</h2>
                     </div>
                     
-                    <div className="card-ratings">
+                     <div className="card-ratings">
                     
                     <div className="rating">
                             <h3>Quality:</h3>
-                            <h2><img src={Star}></img><span className="quality-average">4.9</span></h2>
+                            <h2><img src={Star}></img><span className="quality-average">{this.props.movie.averageQuality}</span></h2>
                         </div>
                         <div className="rating">
                             <h3>Entertainment:</h3>
-                            <h2><img src={Star}></img><span className="ent-average">4.6</span></h2>
+                            <h2><img src={Star}></img><span className="ent-average">{this.props.movie.averageEntertainment}</span></h2>
                         </div>
                         <div className="rating">
                             <h3>Scariness:</h3>
-                            <h2><img src={Star}></img><span className="scariness-average">3</span></h2>
+                            <h2><img src={Star}></img><span className="scariness-average">{this.props.movie.averageScariness}</span></h2>
                         </div> 
-                    </div>
+                    </div> 
                     
                     <p><span className="movie-overview">{overview}</span></p>
                 <div className="spacer"></div>

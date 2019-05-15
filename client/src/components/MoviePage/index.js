@@ -225,7 +225,7 @@ class MovieInfo extends Component {
                         <h1>
                             <span className="movie-name">{title}</span>
                         </h1>
-                        <h2>(<span className="movie-year">{year}</span>)</h2>
+                        <h2 id="year">(<span className="movie-year">{year}</span>)</h2>
                     </div>
                     <div className="movie-ratings">
                         <div className="ratinga">
@@ -283,12 +283,19 @@ class MovieInfo extends Component {
                 <div className="rate-this-movie">
                     <h2 id="rate-this">Recommended Movies</h2>
                 </div>
-            <div className="recommended-here">
-                <RecCard movie={recommendations[0]}/>
-                <RecCard movie={recommendations[1]}/>
-                <RecCard movie={recommendations[2]}/>
-                <RecCard movie={recommendations[3]}/>
-                <RecCard movie={recommendations[4]}/>
+            
+            <div >
+            {recommendations.length ? (
+                <div className="recommended-here">
+                {recommendations.map(movie => (
+                <RecCard key={movie.id} movie={movie} />
+                ))}
+                </div>
+            ) : (
+                <div>No Results Found</div>
+            )}
+
+
             </div>    
 
             

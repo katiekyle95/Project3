@@ -69,6 +69,7 @@ if ( props.isSearching )
 }
 
 
+
 class Movie extends Component {
   state = {
     isOpen: false,
@@ -230,6 +231,7 @@ class Movie extends Component {
                 isWatched={this.state.watched}
                 isWanted={this.state.wanted}
                 />
+                
         </React.Fragment>
         )
     }

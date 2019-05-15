@@ -5,7 +5,7 @@ import Results from "./pages/Results";
 import Movie from "./pages/Movie";
 import Nav from "./components/Nav";
 import Profile from "./pages/Profile";
-
+import NoMatch from "./pages/404";
 
 
 class App extends Component {
@@ -56,6 +56,9 @@ class App extends Component {
             exact path='/profile'
             render={(props) => <Profile {...props} userName={this.state.userName} isLoggedIn={this.state.isLoggedIn} onLogin={this.handleLoggedIn}/>}
           />
+
+          <Route component={NoMatch} />
+
           
          
         </Switch>
